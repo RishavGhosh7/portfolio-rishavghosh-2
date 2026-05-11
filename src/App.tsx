@@ -1,15 +1,11 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { LoadingPage } from './components/layout/LoadingPage'
+import { OfflinePage } from './components/layout/OfflinePage'
 import { PageShell } from './components/layout/PageShell'
 
 const TopNav = lazy(async () => {
   const mod = await import('./components/ui/TopNav')
   return { default: mod.TopNav }
-})
-
-const OfflinePage = lazy(async () => {
-  const mod = await import('./components/layout/OfflinePage')
-  return { default: mod.OfflinePage }
 })
 
 const HeroSection = lazy(async () => {

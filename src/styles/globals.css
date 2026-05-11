@@ -84,11 +84,48 @@
   }
 
   .offline-page {
-    @apply fixed inset-0 z-30 overflow-hidden bg-black;
+    @apply fixed inset-0 z-30 overflow-hidden bg-[#02030a];
   }
 
-  .offline-page canvas {
-    @apply h-full w-full;
+  .offline-grid {
+    @apply absolute inset-0 opacity-50;
+    background:
+      linear-gradient(rgb(113 212 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(159 83 255 / 0.08) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
+    animation: offline-grid-drift 12s linear infinite;
+  }
+
+  .offline-orb {
+    @apply absolute rounded-full blur-3xl;
+    animation: offline-orb-float 7s ease-in-out infinite alternate;
+  }
+
+  .offline-orb-primary {
+    @apply -left-24 top-1/4 h-72 w-72 bg-cyan-400/30;
+  }
+
+  .offline-orb-secondary {
+    @apply -right-20 bottom-1/4 h-80 w-80 bg-violet-500/30;
+    animation-delay: -2s;
+  }
+
+  .offline-signal {
+    @apply absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/15;
+  }
+
+  .offline-signal span {
+    @apply absolute inset-0 rounded-full border border-cyan-200/30;
+    animation: offline-signal-pulse 2.4s ease-out infinite;
+  }
+
+  .offline-signal span:nth-child(2) {
+    animation-delay: 0.8s;
+  }
+
+  .offline-signal span:nth-child(3) {
+    animation-delay: 1.6s;
   }
 
   .offline-copy {
@@ -313,5 +350,49 @@
 
   .form-error {
     @apply text-xs text-red-400;
+  }
+}
+
+@keyframes offline-grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(44px, 44px, 0);
+  }
+}
+
+@keyframes offline-orb-float {
+  from {
+    transform: translate3d(0, -8%, 0) scale(0.95);
+  }
+
+  to {
+    transform: translate3d(12%, 8%, 0) scale(1.08);
+  }
+}
+
+@keyframes offline-signal-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.18);
+  }
+
+  70% {
+    opacity: 0.18;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offline-grid,
+  .offline-orb,
+  .offline-signal span {
+    animation: none;
   }
 }
